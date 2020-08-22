@@ -1,0 +1,12 @@
+C:\Users\M.K\Desktop\Ali\Work\ADO.Net\WindowsFormCollage\WindowsFormCollage\bin\Debug\WindowsFormCollage.exe.config
+C:\Users\M.K\Desktop\Ali\Work\ADO.Net\WindowsFormCollage\WindowsFormCollage\bin\Debug\WindowsFormCollage.exe
+C:\Users\M.K\Desktop\Ali\Work\ADO.Net\WindowsFormCollage\WindowsFormCollage\bin\Debug\WindowsFormCollage.pdb
+C:\Users\M.K\Desktop\Ali\Work\ADO.Net\WindowsFormCollage\WindowsFormCollage\obj\Debug\WindowsFormCollage.csprojAssemblyReference.cache
+C:\Users\M.K\Desktop\Ali\Work\ADO.Net\WindowsFormCollage\WindowsFormCollage\obj\Debug\WindowsFormCollage.Form1.resources
+C:\Users\M.K\Desktop\Ali\Work\ADO.Net\WindowsFormCollage\WindowsFormCollage\obj\Debug\WindowsFormCollage.Properties.Resources.resources
+C:\Users\M.K\Desktop\Ali\Work\ADO.Net\WindowsFormCollage\WindowsFormCollage\obj\Debug\WindowsFormCollage.csproj.GenerateResource.cache
+C:\Users\M.K\Desktop\Ali\Work\ADO.Net\WindowsFormCollage\WindowsFormCollage\obj\Debug\WindowsFormCollage.csproj.CoreCompileInputs.cache
+C:\Users\M.K\Desktop\Ali\Work\ADO.Net\WindowsFormCollage\WindowsFormCollage\obj\Debug\WindowsFormCollage.exe
+C:\Users\M.K\Desktop\Ali\Work\ADO.Net\WindowsFormCollage\WindowsFormCollage\obj\Debug\WindowsFormCollage.pdb
+C:\Users\M.K\Desktop\Ali\Work\ADO.Net\WindowsFormCollage\WindowsFormCollage\obj\Debug\WindowsFormCollage.HeadTeachForm.resources
+C:\Users\M.K\Desktop\Ali\Work\ADO.Net\WindowsFormCollage\WindowsFormCollage\obj\Debug\WindowsFormCollage.StudentForm.resources
