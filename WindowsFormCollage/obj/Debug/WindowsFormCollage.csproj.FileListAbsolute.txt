@@ -10,3 +10,8 @@ C:\Users\M.K\Desktop\Ali\Work\ADO.Net\WindowsFormCollage\WindowsFormCollage\obj\
 C:\Users\M.K\Desktop\Ali\Work\ADO.Net\WindowsFormCollage\WindowsFormCollage\obj\Debug\WindowsFormCollage.pdb
 C:\Users\M.K\Desktop\Ali\Work\ADO.Net\WindowsFormCollage\WindowsFormCollage\obj\Debug\WindowsFormCollage.HeadTeachForm.resources
 C:\Users\M.K\Desktop\Ali\Work\ADO.Net\WindowsFormCollage\WindowsFormCollage\obj\Debug\WindowsFormCollage.StudentForm.resources
+C:\Users\M.K\Desktop\Ali\Work\ADO.Net\WindowsFormCollage\WindowsFormCollage\obj\Debug\WindowsFormCollage.TeacherForm.resources
+C:\Users\M.K\Desktop\Ali\Work\ADO.Net\WindowsFormCollage\WindowsFormCollage\obj\Debug\WindowsFormCollage.CourseForm.resources
+C:\Users\M.K\Desktop\Ali\Work\ADO.Net\WindowsFormCollage\WindowsFormCollage\bin\Debug\System.ValueTuple.dll
+C:\Users\M.K\Desktop\Ali\Work\ADO.Net\WindowsFormCollage\WindowsFormCollage\bin\Debug\System.ValueTuple.xml
+C:\Users\M.K\Desktop\Ali\Work\ADO.Net\WindowsFormCollage\WindowsFormCollage\obj\Debug\WindowsFormCollage.csproj.CopyComplete

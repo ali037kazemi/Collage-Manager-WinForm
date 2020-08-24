@@ -268,7 +268,6 @@
             this.Controls.Add(this.nameTxt);
             this.Name = "StudentForm";
             this.Text = "StudentForm";
-            this.Load += new System.EventHandler(this.StudentForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

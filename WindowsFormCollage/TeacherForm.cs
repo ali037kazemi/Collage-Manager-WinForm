@@ -12,9 +12,9 @@ using System.Windows.Forms;
 namespace WindowsFormCollage {
     /// <Author>Ali Kazemi</Author>
     /// <summary>
-    /// A class for quering on HeadTeachs table
+    /// A class for quering on Teachers table
     /// </summary>
-    public partial class HeadTeachForm : Form {
+    public partial class TeacherForm : Form {
 
         #region Properties
         /// <summary>
@@ -22,11 +22,11 @@ namespace WindowsFormCollage {
         /// </summary>
         public SqlConnection Connection { get; set; }
         public int? ItemId { get; set; }
-        public HeadTeach HeadOfTeach { get; set; }
+        public Teacher T { get; set; }
         #endregion
 
         #region Constructors
-        public HeadTeachForm(SqlConnection connection, int? id)
+        public TeacherForm(SqlConnection connection, int? id)
         {
             ItemId = id;
             Connection = connection;
@@ -37,53 +37,54 @@ namespace WindowsFormCollage {
         /// برای اپدیت کردن اطلاعات
         /// </summary>
         /// <param name="connection"></param>
-        /// <param name="headTeach"></param>
-        public HeadTeachForm(SqlConnection connection, HeadTeach headTeach, int id)
-            : this(connection, headTeach.HeadTeachId)
+        /// <param name="teacher"></param>
+        public TeacherForm(SqlConnection connection, Teacher teacher, int? id)
+            : this(connection, teacher.TeacherId)
         {
-            HeadOfTeach = headTeach;
+            T = teacher;
             SetValueForEdit();
         }
         #endregion
 
         private void SetValueForEdit()
         {
-            nationalCodeTxt.Text = HeadOfTeach.NationalCode;
-            nameTxt.Text = HeadOfTeach.Name;
-            familyTxt.Text = HeadOfTeach.Family;
-            fatherNameTxt.Text = HeadOfTeach.FatherName;
-            phoneTxt.Text = HeadOfTeach.PhoneNumber;
-            addressTxt.Text = HeadOfTeach.Address;
-            studyFieldTxt.Text = HeadOfTeach.StudyField;
+            nationalCodeTxt.Text = T.NationalCode;
+            nameTxt.Text = T.Name;
+            familyTxt.Text = T.Family;
+            fatherNameTxt.Text = T.FatherName;
+            phoneTxt.Text = T.PhoneNumber;
+            addressTxt.Text = T.Address;
+            degreeTxt.Text = T.Degree;
         }
 
-        private void saveHeadTeachBtn_Click(object sender, EventArgs e)
+        private void saveBtn_Click(object sender, EventArgs e)
         {
-            HeadTeach ht = new HeadTeach(
+            Teacher t = new Teacher(
                 nationalCodeTxt.Text, nameTxt.Text, familyTxt.Text,
-                fatherNameTxt.Text, phoneTxt.Text, addressTxt.Text, studyFieldTxt.Text);
+                fatherNameTxt.Text, phoneTxt.Text, addressTxt.Text,
+                degreeTxt.Text);
 
             if (ItemId == null) // Insert into table
             {
-                InsertHeadTeach(ht);
+                InsertTeacher(t);
             }
             else                // Update the table
             {
-                UpdateHeadTeach((int)ItemId, ht);
+                UpdateTeacher((int)ItemId, t);
             }
 
             this.Close();
         }
 
         /// <summary>
-        /// افزودن یک مسول آموزش جدید در دیتابیس
+        /// افزودن یک استاد جدید در دیتابیس
         /// </summary>
-        /// <param name="ht">مسول آموزشی که در دیتابیس اضافه میشود</param>
-        private void InsertHeadTeach(HeadTeach ht)
+        /// <param name="st">استادی که در دیتابیس اضافه میشود</param>
+        public void InsertTeacher(Teacher st)
         {
             string queryString =
 
-                    "insert into HeadTeachs " +
+                    "insert into Teachers " +
                     "(" +
                             "NationalCode," +
                             "Name," +
@@ -91,41 +92,41 @@ namespace WindowsFormCollage {
                             "FatherName," +
                             "PhoneNumber," +
                             "Address," +
-                            "StudyField" +
+                            "Degree" +
                     ") " +
                     "values" +
                     "(" +
-                            $"'{ht.NationalCode}', " +
-                            $"N'{ht.Name}', " +
-                            $"N'{ht.Family}', " +
-                            $"N'{ht.FatherName}', " +
-                            $"'{ht.PhoneNumber}', " +
-                            $"N'{ht.Address}', " +
-                            $"N'{ht.StudyField}'" +
+                            $"'{st.NationalCode}', " +
+                            $"N'{st.Name}', " +
+                            $"N'{st.Family}', " +
+                            $"N'{st.FatherName}', " +
+                            $"'{st.PhoneNumber}', " +
+                            $"N'{st.Address}', " +
+                            $"N'{st.Degree}'" +
                     ")";
 
-            ExecuteCommand(queryString, "Insert into HeadTeachs table Successfully");
+            ExecuteCommand(queryString, "Insert into Teachers table Successfully");
         }
 
         /// <summary>
-        /// تغییر اطلاعات یک مسول آموزش با استفاده از آیدی
+        /// تغییر اطلاعات یک استاد با استفاده از آیدی
         /// </summary>
-        /// <param name="id">آیدی مسول آموزش مورد نظر برای تغییر اطلاعات آن از دیتابیس</param>
-        /// <param name="ht">مسول آموزش جدید که به جای درس قبلی قرار خواهد گرفت</param>
-        private void UpdateHeadTeach(int id, HeadTeach ht)
+        /// <param name="id">آیدی استاد مورد نظر برای تغییر اطلاعات آن از دیتابیس</param>
+        /// <param name="t">استاد جدید که به جای استاد قبلی قرار خواهد گرفت</param>
+        public void UpdateTeacher(int id, Teacher t)
         {
             string queryString =
-                     $"update HeadTeachs set " +
-                        $"NationalCode = '{ht.NationalCode}', " +
-                        $"Name = N'{ht.Name}', " +
-                        $"Family = N'{ht.Family}', " +
-                        $"FatherName = N'{ht.FatherName}', " +
-                        $"PhoneNumber = '{ht.PhoneNumber}', " +
-                        $"Address = N'{ht.Address}', " +
-                        $"StudyField = N'{ht.StudyField}'" +
-                     $"where HeadTeachId = {id}";
+                    $"update Teachers set " +
+                        $"NationalCode = '{t.NationalCode}', " +
+                        $"Name = N'{t.Name}', " +
+                        $"Family = N'{t.Family}', " +
+                        $"FatherName = N'{t.FatherName}', " +
+                        $"PhoneNumber = '{t.PhoneNumber}', " +
+                        $"Address = N'{t.Address}', " +
+                        $"Degree = N'{t.Degree}'" +
+                    $"where TeacherId = {id}";
 
-            ExecuteCommand(queryString, "HeadTeachs update Successfully");
+            ExecuteCommand(queryString, "Teachers update Successfully");
         }
 
 
