@@ -58,16 +58,9 @@ namespace CollageManager {
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            if (CreateDatabase())
+            if (CreateTables())
             {
-                if (CreateTables())
-                {
-                    BindGrid();
-                }
-                else
-                {
-                    MessageBox.Show("مشکلی بوجود آمده است");
-                }
+                BindGrid();
             }
             else
             {
