@@ -1,5 +1,6 @@
-﻿using Models;
+﻿using Models2;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -58,7 +59,7 @@ namespace CollageManager {
             {
                 //string headTeach = boxHeadTeachId.SelectedItem.ToString();
                 //int headTeachId = int.Parse(headTeach.Substring(headTeach.Length - 1));
-                int headTeachId = (int)boxHeadTeachId.SelectedItem;
+                int headTeachId = (int)boxHeadTeachId.SelectedValue;
 
                 Course c = new Course(txtTitle.Text, (byte)txtCredit.Value, creditType.Checked, headTeachId);
 
@@ -87,18 +88,28 @@ namespace CollageManager {
 
         private void FormCourse_Load(object sender, EventArgs e)
         {
+
+            boxHeadTeachId.DisplayMember = "FullName";
+            boxHeadTeachId.ValueMember = "Id";
+
+            DataTable headTeachsTable = headTeachsRepo.SelectAll();
+            ArrayList fullHeadTeachs = new ArrayList();
+
+            foreach (DataRow item in headTeachsTable.Rows)
+            {
+                var fullHeadTeach = new
+                {
+                    FullName = item.ItemArray[2].ToString() + " " + item.ItemArray[3].ToString(),
+                    Id = (int)item.ItemArray[0]
+                };
+                fullHeadTeachs.Add(fullHeadTeach);
+            }
+
+            boxHeadTeachId.DataSource = fullHeadTeachs;
+
             if (CourseId == null)
             {
-                this.Text = "افزودن دانشجو";
-
-                // اضافه کردن مسولین آموزش
-                DataTable headTeachsTable = headTeachsRepo.SelectAll();
-                foreach (DataRow item in headTeachsTable.Rows)
-                {
-                    //boxHeadTeachId.Items.Add($"{item.ItemArray[1]} {item.ItemArray[2]} - id({item.ItemArray[0]})");
-                    boxHeadTeachId.Items.Add(item.ItemArray[0]);
-                }
-                //
+                this.Text = "افزودن درس";
             }
             else
             {
@@ -109,19 +120,15 @@ namespace CollageManager {
                 txtCredit.Value = (byte)courseTable.Rows[0][2];
                 creditType.Checked = (bool)courseTable.Rows[0][3];
 
-                // اضافه کردن مسولین آموزش
-                DataTable headTeachsTable = headTeachsRepo.SelectAll();
-                foreach (DataRow item in headTeachsTable.Rows)
+                try
                 {
-                    //boxHeadTeachId.Items.Add($"{item.ItemArray[1]} {item.ItemArray[2]} - id({item.ItemArray[0]})");
-                    boxHeadTeachId.Items.Add(item.ItemArray[0]);
+                    boxHeadTeachId.SelectedValue = (int)courseTable.Rows[0][4];
                 }
+                catch (Exception ex)
+                {
 
-                DataRow headTeach = headTeachsRepo.SelectById((int)courseTable.Rows[0][4]).Rows[0];
-
-                //boxHeadTeachId.SelectedItem = $"{headTeach.ItemArray[1]} {headTeach.ItemArray[2]} - id({headTeach.ItemArray[0]})";
-                boxHeadTeachId.SelectedItem = headTeach.ItemArray[0];
-                //
+                    MessageBox.Show(ex.Message);
+                }
 
                 btnConfirm.Text = "ویرایش";
             }

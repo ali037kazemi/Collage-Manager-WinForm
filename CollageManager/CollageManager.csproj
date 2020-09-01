@@ -120,13 +120,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Models\Models.csproj">
-      <Project>{227bae8c-9d85-462d-87e6-1ba403da8d99}</Project>
-      <Name>Models</Name>
-    </ProjectReference>
+    <Folder Include="Components\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Components\" />
+    <ProjectReference Include="..\Model2\Models2.csproj">
+      <Project>{d8b4e82e-3166-4a9a-9239-84079db76686}</Project>
+      <Name>Models2</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,4 @@
-﻿using Models;
+﻿using Models2;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -58,13 +58,49 @@ namespace CollageManager {
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            if (CreateTables())
+            if (CreatDatabase())
             {
-                BindGrid();
+                if (CreateTables())
+                {
+                    BindGrid();
+                }
+                else
+                {
+                    MessageBox.Show("مشکلی بوجود آمده است");
+                }
             }
             else
             {
                 MessageBox.Show("مشکلی بوجود آمده است");
+            }
+        }
+
+        private bool CreatDatabase()
+        {
+            string queryString =
+                    "use master \n" +
+                    "IF DB_ID('Collage') <= 0 " +
+                        "CREATE DATABASE Collage ";
+
+            SqlConnection connection =
+                    new SqlConnection("data source=.; database=master; integrated security=SSPI");
+            try
+            {
+                connection.Open();
+                SqlCommand cm = new SqlCommand(queryString, connection);
+
+                // Executing the SQL query
+                cm.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            finally
+            {
+                connection.Close();
             }
         }
 
@@ -489,11 +525,82 @@ namespace CollageManager {
             return true;
         }
 
+
+
+
+
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             BindGrid();
         }
 
+        private void radioBtnMouseClick(object sender, MouseEventArgs e)
+        {
+            BindGrid();
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            string searchStr = txtSearch.Text.Trim();
+
+            if (rBtnHeadTeachs.Checked)
+            {
+                if (searchStr != "")
+                {
+                    gridView.DataSource = headTeachsRepo.Search(searchStr);
+                }
+                else
+                {
+                    gridView.DataSource = headTeachsRepo.SelectAll();
+                }
+                //SetHeadTeachs();
+            }
+            else if (rBtnStudents.Checked)
+            {
+                if (searchStr != "")
+                {
+                    gridView.DataSource = studentsRepo.Search(searchStr);
+                }
+                else
+                {
+                    gridView.DataSource = studentsRepo.SelectAll();
+                }
+                //SetStudents();
+            }
+            else if (rBtnTeachers.Checked)
+            {
+                if (searchStr != "")
+                {
+                    gridView.DataSource = teachersRepo.Search(searchStr);
+                }
+                else
+                {
+                    gridView.DataSource = teachersRepo.SelectAll();
+                }
+                //SetTeachers();
+            }
+            else if (rBtnCourses.Checked)
+            {
+                if (searchStr != "")
+                {
+                    gridView.DataSource = coursesRepo.Search(searchStr);
+                }
+                else
+                {
+                    gridView.DataSource = coursesRepo.SelectAll();
+                }
+                //SetCourses();
+            }
+            else
+            {
+                MessageBox.Show("ابتدا یک لیست را برای جستجو انتخاب کنید", "اخطار");
+            }
+        }
+
+
+
+
+        
         private void btnAdd_Click(object sender, EventArgs e)
         {
 
@@ -533,11 +640,6 @@ namespace CollageManager {
             {
                 MessageBox.Show("لطفا یک گزینه را برای حذف از لیست انتخاب کنید", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-        }
-
-        private void radioBtnMouseClick(object sender, MouseEventArgs e)
-        {
-            BindGrid();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -612,64 +714,6 @@ namespace CollageManager {
             }
         }
 
-        private void txtSearch_TextChanged(object sender, EventArgs e)
-        {
-            string searchStr = txtSearch.Text.Trim();
-
-            if (rBtnHeadTeachs.Checked)
-            {
-                if (searchStr != "")
-                {
-                    gridView.DataSource = headTeachsRepo.Search(searchStr);
-                }
-                else
-                {
-                    gridView.DataSource = headTeachsRepo.SelectAll();
-                }
-                //SetHeadTeachs();
-            }
-            else if (rBtnStudents.Checked)
-            {
-                if (searchStr != "")
-                {
-                    gridView.DataSource = studentsRepo.Search(searchStr);
-                }
-                else
-                {
-                    gridView.DataSource = studentsRepo.SelectAll();
-                }
-                //SetStudents();
-            }
-            else if (rBtnTeachers.Checked)
-            {
-                if (searchStr != "")
-                {
-                    gridView.DataSource = teachersRepo.Search(searchStr);
-                }
-                else
-                {
-                    gridView.DataSource = teachersRepo.SelectAll();
-                }
-                //SetTeachers();
-            }
-            else if (rBtnCourses.Checked)
-            {
-                if (searchStr != "")
-                {
-                    gridView.DataSource = coursesRepo.Search(searchStr);
-                }
-                else
-                {
-                    gridView.DataSource = coursesRepo.SelectAll();
-                }
-                //SetCourses();
-            }
-            else
-            {
-                MessageBox.Show("ابتدا یک لیست را برای جستجو انتخاب کنید", "اخطار");
-            }
-        }
-
         private void btnEdit_Click(object sender, EventArgs e)
         {
             if (gridView.CurrentRow != null)
@@ -716,6 +760,34 @@ namespace CollageManager {
                 {
                     MessageBox.Show("لطفا یک گزینه را برای ویرایش از لیست انتخاب کنید", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
+            }
+        }
+
+
+
+
+
+        private void SetRelationListData()
+        {
+            if (rBtnHeadTeachs.Checked)
+            {
+                gridView.DataSource = headTeachsRepo.SelectAll();
+                SetHeadTeachs();
+            }
+            if (rBtnStudents.Checked)
+            {
+                gridView.DataSource = studentsRepo.SelectAll();
+                SetStudents();
+            }
+            if (rBtnTeachers.Checked)
+            {
+                gridView.DataSource = teachersRepo.SelectAll();
+                SetTeachers();
+            }
+            if (rBtnCourses.Checked)
+            {
+                gridView.DataSource = coursesRepo.SelectAll();
+                SetCourses();
             }
         }
     }

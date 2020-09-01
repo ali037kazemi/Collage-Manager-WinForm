@@ -27,14 +27,14 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.creditType = new System.Windows.Forms.CheckBox();
+            this.txtCredit = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
             this.boxHeadTeachId = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.btnConfirm = new System.Windows.Forms.Button();
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtCredit = new System.Windows.Forms.NumericUpDown();
-            this.label7 = new System.Windows.Forms.Label();
-            this.creditType = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtCredit)).BeginInit();
             this.SuspendLayout();
@@ -56,8 +56,54 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "اطلاعات";
             // 
+            // creditType
+            // 
+            this.creditType.AutoSize = true;
+            this.creditType.Checked = true;
+            this.creditType.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.creditType.Location = new System.Drawing.Point(6, 76);
+            this.creditType.Name = "creditType";
+            this.creditType.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.creditType.Size = new System.Drawing.Size(65, 17);
+            this.creditType.TabIndex = 27;
+            this.creditType.Text = "تخصصی";
+            this.creditType.UseVisualStyleBackColor = true;
+            // 
+            // txtCredit
+            // 
+            this.txtCredit.Location = new System.Drawing.Point(6, 35);
+            this.txtCredit.Maximum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.txtCredit.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.txtCredit.Name = "txtCredit";
+            this.txtCredit.Size = new System.Drawing.Size(130, 21);
+            this.txtCredit.TabIndex = 26;
+            this.txtCredit.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(142, 37);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(35, 13);
+            this.label7.TabIndex = 25;
+            this.label7.Text = "واحد :";
+            // 
             // boxHeadTeachId
             // 
+            this.boxHeadTeachId.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.boxHeadTeachId.FormattingEnabled = true;
             this.boxHeadTeachId.Location = new System.Drawing.Point(132, 74);
             this.boxHeadTeachId.Name = "boxHeadTeachId";
@@ -100,51 +146,6 @@
             this.label1.Size = new System.Drawing.Size(40, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "عنوان :";
-            // 
-            // txtCredit
-            // 
-            this.txtCredit.Location = new System.Drawing.Point(6, 35);
-            this.txtCredit.Maximum = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-            this.txtCredit.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.txtCredit.Name = "txtCredit";
-            this.txtCredit.Size = new System.Drawing.Size(130, 21);
-            this.txtCredit.TabIndex = 26;
-            this.txtCredit.Value = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(142, 37);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(35, 13);
-            this.label7.TabIndex = 25;
-            this.label7.Text = "واحد :";
-            // 
-            // creditType
-            // 
-            this.creditType.AutoSize = true;
-            this.creditType.Checked = true;
-            this.creditType.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.creditType.Location = new System.Drawing.Point(6, 76);
-            this.creditType.Name = "creditType";
-            this.creditType.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.creditType.Size = new System.Drawing.Size(65, 17);
-            this.creditType.TabIndex = 27;
-            this.creditType.Text = "تخصصی";
-            this.creditType.UseVisualStyleBackColor = true;
             // 
             // FormCourse
             // 
