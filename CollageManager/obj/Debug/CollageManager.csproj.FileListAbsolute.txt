@@ -17,3 +17,22 @@ C:\Users\M.K\Desktop\Ali\Work\Windows Form\CollageManager\CollageManager\obj\Deb
 C:\Users\M.K\Desktop\Ali\Work\Windows Form\CollageManager\CollageManager\obj\Debug\CollageManager.FormCourse.resources
 C:\Users\M.K\Desktop\Ali\Work\Windows Form\CollageManager\CollageManager\bin\Debug\Model2.dll
 C:\Users\M.K\Desktop\Ali\Work\Windows Form\CollageManager\CollageManager\bin\Debug\Model2.pdb
+C:\Users\M.K\Desktop\Ali\Git-Repo\Collage-Manager-WinForm\CollageManager\bin\Debug\CollageManager.exe.config
+C:\Users\M.K\Desktop\Ali\Git-Repo\Collage-Manager-WinForm\CollageManager\bin\Debug\CollageManager.exe
+C:\Users\M.K\Desktop\Ali\Git-Repo\Collage-Manager-WinForm\CollageManager\bin\Debug\CollageManager.pdb
+C:\Users\M.K\Desktop\Ali\Git-Repo\Collage-Manager-WinForm\CollageManager\bin\Debug\Model2.dll
+C:\Users\M.K\Desktop\Ali\Git-Repo\Collage-Manager-WinForm\CollageManager\bin\Debug\System.Data.SqlClient.dll
+C:\Users\M.K\Desktop\Ali\Git-Repo\Collage-Manager-WinForm\CollageManager\bin\Debug\Model2.pdb
+C:\Users\M.K\Desktop\Ali\Git-Repo\Collage-Manager-WinForm\CollageManager\bin\Debug\System.Data.SqlClient.xml
+C:\Users\M.K\Desktop\Ali\Git-Repo\Collage-Manager-WinForm\CollageManager\obj\Debug\CollageManager.csprojAssemblyReference.cache
+C:\Users\M.K\Desktop\Ali\Git-Repo\Collage-Manager-WinForm\CollageManager\obj\Debug\CollageManager.Form1.resources
+C:\Users\M.K\Desktop\Ali\Git-Repo\Collage-Manager-WinForm\CollageManager\obj\Debug\CollageManager.FormCourse.resources
+C:\Users\M.K\Desktop\Ali\Git-Repo\Collage-Manager-WinForm\CollageManager\obj\Debug\CollageManager.FormHeadTeach.resources
+C:\Users\M.K\Desktop\Ali\Git-Repo\Collage-Manager-WinForm\CollageManager\obj\Debug\CollageManager.FormStudent.resources
+C:\Users\M.K\Desktop\Ali\Git-Repo\Collage-Manager-WinForm\CollageManager\obj\Debug\CollageManager.FormTeacher.resources
+C:\Users\M.K\Desktop\Ali\Git-Repo\Collage-Manager-WinForm\CollageManager\obj\Debug\CollageManager.Properties.Resources.resources
+C:\Users\M.K\Desktop\Ali\Git-Repo\Collage-Manager-WinForm\CollageManager\obj\Debug\CollageManager.csproj.GenerateResource.cache
+C:\Users\M.K\Desktop\Ali\Git-Repo\Collage-Manager-WinForm\CollageManager\obj\Debug\CollageManager.csproj.CoreCompileInputs.cache
+C:\Users\M.K\Desktop\Ali\Git-Repo\Collage-Manager-WinForm\CollageManager\obj\Debug\CollageManager.csproj.CopyComplete
+C:\Users\M.K\Desktop\Ali\Git-Repo\Collage-Manager-WinForm\CollageManager\obj\Debug\CollageManager.exe
+C:\Users\M.K\Desktop\Ali\Git-Repo\Collage-Manager-WinForm\CollageManager\obj\Debug\CollageManager.pdb
