@@ -140,5 +140,21 @@ namespace Models2 {
 
             return ExtensionMethods.ExecuteReadCommand(queryString, Connection);
         }
+
+        public DataTable SelectAllStudents(int headTeachId)
+        {
+            string queryString = 
+                        "Select * From Students Where HeadTeachId = " + headTeachId;
+
+            return ExtensionMethods.ExecuteReadCommand(queryString, Connection);
+        }
+
+        public DataTable SelectAllCourses(int headTeachId)
+        {
+            string queryString =
+                        "Select * From Courses Where HeadTeachId = " + headTeachId;
+
+            return ExtensionMethods.ExecuteReadCommand(queryString, Connection);
+        }
     }
 }

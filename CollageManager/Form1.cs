@@ -112,12 +112,13 @@ namespace CollageManager {
             // خودش ستون ها رو نمیسازه و ما باید بهش بگیم بره از کجا بگیره بسازیم
             gridView.AutoGenerateColumns = false;
 
-            gridViewRelation.DataSource = existingCoursesRepo.SelectByTeacherId(1);
+            //gridViewRelation.DataSource = existingCoursesRepo.SelectByTeacherId(1);
 
             if (rBtnHeadTeachs.Checked)
             {
                 gridView.DataSource = headTeachsRepo.SelectAll();
                 SetHeadTeachs();
+                SetRelationListData();
             }
             if (rBtnStudents.Checked)
             {
@@ -536,6 +537,11 @@ namespace CollageManager {
 
         private void radioBtnMouseClick(object sender, MouseEventArgs e)
         {
+            cmbRelationList.Items.Clear();
+
+            cmbRelationList.Items.Add("دانشجویان");
+            cmbRelationList.Items.Add("دروس");
+
             BindGrid();
         }
 
@@ -771,8 +777,7 @@ namespace CollageManager {
         {
             if (rBtnHeadTeachs.Checked)
             {
-                gridView.DataSource = headTeachsRepo.SelectAll();
-                SetHeadTeachs();
+                SetHeadTeachsRelationList();
             }
             if (rBtnStudents.Checked)
             {
@@ -789,6 +794,35 @@ namespace CollageManager {
                 gridView.DataSource = coursesRepo.SelectAll();
                 SetCourses();
             }
+        }
+
+        #region Set Relation Lists
+        private void SetHeadTeachsRelationList()
+        {
+            if (gridView.CurrentRow != null)
+            {
+                int id = int.Parse(gridView.CurrentRow.Cells[0].Value.ToString());
+
+                switch (cmbRelationList.SelectedIndex)
+                {
+                    case 0:
+                    gridViewRelation.DataSource = headTeachsRepo.SelectAllStudents(id);
+                    break;
+
+                    case 1:
+                    gridViewRelation.DataSource = headTeachsRepo.SelectAllCourses(id);
+                    break;
+
+                    default:
+                    break;
+                }
+            }
+        }
+        #endregion
+
+        private void cmbRelationList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SetHeadTeachsRelationList();
         }
     }
 }

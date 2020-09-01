@@ -79,6 +79,7 @@
             this.cmbRelationList.Name = "cmbRelationList";
             this.cmbRelationList.Size = new System.Drawing.Size(216, 21);
             this.cmbRelationList.TabIndex = 5;
+            this.cmbRelationList.SelectedIndexChanged += new System.EventHandler(this.cmbRelationList_SelectedIndexChanged);
             // 
             // txtSearch
             // 
@@ -202,12 +203,10 @@
             // rBtnStudents
             // 
             this.rBtnStudents.AutoSize = true;
-            this.rBtnStudents.Checked = true;
             this.rBtnStudents.Location = new System.Drawing.Point(24, 20);
             this.rBtnStudents.Name = "rBtnStudents";
             this.rBtnStudents.Size = new System.Drawing.Size(73, 17);
             this.rBtnStudents.TabIndex = 0;
-            this.rBtnStudents.TabStop = true;
             this.rBtnStudents.Text = "دانشجویان";
             this.rBtnStudents.UseVisualStyleBackColor = true;
             this.rBtnStudents.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radioBtnMouseClick);
