@@ -54,7 +54,7 @@
             // 
             this.groupBox1.Controls.Add(this.gridViewRelation);
             this.groupBox1.Controls.Add(this.cmbRelationList);
-            this.groupBox1.Location = new System.Drawing.Point(12, 84);
+            this.groupBox1.Location = new System.Drawing.Point(12, 335);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(1047, 146);
             this.groupBox1.TabIndex = 1;
@@ -96,9 +96,9 @@
             this.groupBox2.Controls.Add(this.btnDelete);
             this.groupBox2.Controls.Add(this.btnEdit);
             this.groupBox2.Controls.Add(this.gridView);
-            this.groupBox2.Location = new System.Drawing.Point(12, 236);
+            this.groupBox2.Location = new System.Drawing.Point(12, 84);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1047, 245);
+            this.groupBox2.Size = new System.Drawing.Size(1053, 245);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "اطلاعات";
@@ -234,7 +234,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1071, 493);
+            this.ClientSize = new System.Drawing.Size(1071, 489);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.groupBox3);
