@@ -72,12 +72,10 @@ namespace CollageManager {
                     "IF DB_ID('Collage') <= 0 " +
                         "CREATE DATABASE Collage ";
 
-            SqlConnection connection =
-                    new SqlConnection("data source=.; database=master; integrated security=SSPI");
             try
             {
-                connection.Open();
-                SqlCommand cm = new SqlCommand(queryString, connection);
+                Connection.Open();
+                SqlCommand cm = new SqlCommand(queryString, Connection);
 
                 // Executing the SQL query
                 cm.ExecuteNonQuery();
@@ -92,7 +90,7 @@ namespace CollageManager {
             }
             finally
             {
-                connection.Close();
+                Connection.Close();
             }
         }
 
