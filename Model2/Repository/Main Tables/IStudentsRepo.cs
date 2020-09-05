@@ -15,7 +15,19 @@ namespace Models2 {
                     short entryYear, string postalCode, string field,
                     string grade, int headTeachId);
         bool Delete(Student student);
+
+        /// <summary>
+        /// انتخاب تمام اساتیدی که با این دانشجو در ارتباط هستند
+        /// </summary>
+        /// <param name="studentId">آیدی دانشجو مورد نظر</param>
+        /// <returns>تمام اساتیدی که با این دانشجو در ارتباط هستند</returns>
         DataTable SelectAllTeachers(int studentId);
+
+        /// <summary>
+        /// انتخاب تمام دروسی که این دانشجو اخذ کرده است
+        /// </summary>
+        /// <param name="studentId">آیدی دانشجو مورد نظر</param>
+        /// <returns>تمام دروسی که این دانشجو اخذ کرده است</returns>
         DataTable SelectAllCourses(int studentId);
     }
 }

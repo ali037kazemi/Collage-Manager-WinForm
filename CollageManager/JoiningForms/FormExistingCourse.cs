@@ -21,6 +21,8 @@ namespace CollageManager.JoiningForms {
         public int? TeacherId { get; set; }
         public int? CourseId { get; set; }
 
+
+
         public FormExistingCourse(SqlConnection connection)
         {
             Connection = connection;

@@ -16,14 +16,14 @@ namespace CollageManager {
 
         public SqlConnection Connection { get; }
 
-        IHeadTeachsRepo headTeachsRepo;
-        IStudentsRepo studentsRepo;
-        ITeachersRepo teachersRepo;
-        ICoursesRepo coursesRepo;
-        IExistingCoursesRepo existingCoursesRepo;
-        IStudentCoursesRepo studentCoursesRepo;
-        IStudentTeacherRepo studentTeacherRepo;
-        IPreCoursesRepo preCoursesRepo;
+        private IHeadTeachsRepo headTeachsRepo;
+        private IStudentsRepo studentsRepo;
+        private ITeachersRepo teachersRepo;
+        private ICoursesRepo coursesRepo;
+        private IExistingCoursesRepo existingCoursesRepo;
+        private IStudentCoursesRepo studentCoursesRepo;
+        private IStudentTeacherRepo studentTeacherRepo;
+        private IPreCoursesRepo preCoursesRepo;
 
         public Form1()
         {
@@ -42,6 +42,10 @@ namespace CollageManager {
             preCoursesRepo = new PreCoursesRepo(Connection);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="connection">Connection for connecting to Database</param>
         public Form1(SqlConnection connection)
         {
             Connection = connection;
@@ -130,7 +134,10 @@ namespace CollageManager {
             return true;
         }
 
-        private void SetRelationList()
+        /// <summary>
+        /// بارگذاری و تعیین اطلاعات مربوط به هر جدول با توجه به آیتم انتخابی
+        /// </summary>
+        private void SetRelationListsData()
         {
             if (rBtnHeadTeachs.Checked)
             {
@@ -150,10 +157,11 @@ namespace CollageManager {
             }
         }
 
+        /// <summary>
+        /// باگذاری دوباره اطلاعات
+        /// </summary>
         private void BindGrid()
         {
-            //gridView.AutoGenerateColumns = false;
-
             if (rBtnHeadTeachs.Checked)
             {
                 gridView.DataSource = headTeachsRepo.SelectAll();
@@ -180,7 +188,12 @@ namespace CollageManager {
             }
         }
 
-        #region Set Relation Lists
+        #region Set Relation Lists Data
+
+        // دو دکمه حذف و درج برای یک سری از جداول تنها وجود دارد و در بقیه موارد دکمه ها نمایان نیستند
+        // به علت آنکه به عنوان مثال ما نمیتوانیم از قسمت ارتباط دانشجوها با اساتید تغییری بوجود بیاوریم
+        // زیرا این تغییرات با توجه به تغییرات دروس اخذ شده به طور خودکار انجام میشوند
+
         private void SetHeadTeachsRelationList()
         {
             btnAddRelation.Visible = false;
@@ -195,12 +208,12 @@ namespace CollageManager {
 
                 switch (cmbRelationList.SelectedIndex)
                 {
-                    case 0:
+                    case 0:// نمایش دانشجویانی که زیر نظر این مسول آموزش هستند
                     gridViewRelation.DataSource = headTeachsRepo.SelectAllStudents(id);
                     SetStudents(gridViewRelation);
                     break;
 
-                    case 1:
+                    case 1:// نمایش دروسی که زیر نظر این مسول آموزش هستند
                     gridViewRelation.DataSource = headTeachsRepo.SelectAllCourses(id);
                     SetCourses(gridViewRelation);
                     break;
@@ -224,14 +237,14 @@ namespace CollageManager {
 
                 switch (cmbRelationList.SelectedIndex)
                 {
-                    case 0:
+                    case 0:// نمایش اساتیدی که در ارتباط با این دانشجو هستند
                     btnAddRelation.Visible = false;
                     btnDeleteRelation.Visible = false;
                     gridViewRelation.DataSource = studentsRepo.SelectAllTeachers(id);
                     SetTeachers(gridViewRelation);
                     break;
 
-                    case 1:
+                    case 1:// نمایش دروسی که توسط دانشجو اخذ شده اند
                     btnAddRelation.Visible = true;
                     btnDeleteRelation.Visible = true;
                     gridViewRelation.DataSource = studentsRepo.SelectAllCourses(id);
@@ -259,14 +272,14 @@ namespace CollageManager {
 
                 switch (cmbRelationList.SelectedIndex)
                 {
-                    case 0:
+                    case 0:// نمایش دانشجویانی که با استاد در ارتباط هستند
                     btnAddRelation.Visible = false;
                     btnDeleteRelation.Visible = false;
                     gridViewRelation.DataSource = teachersRepo.SelectAllStudents(id);
                     SetStudents(gridViewRelation);
                     break;
 
-                    case 1:
+                    case 1:// نمایش دروسی که این استاد ارایه داده است
                     btnAddRelation.Visible = true;
                     btnDeleteRelation.Visible = true;
                     gridViewRelation.DataSource = teachersRepo.SelectAllCourses(id);
@@ -296,17 +309,17 @@ namespace CollageManager {
 
                 switch (cmbRelationList.SelectedIndex)
                 {
-                    case 0:
+                    case 0:// نمایش تمام دانشجویانی که این درس را اخذ کرده اند
                     gridViewRelation.DataSource = coursesRepo.SelectAllStudents(id);
                     SetStudents(gridViewRelation);
                     break;
 
-                    case 1:
+                    case 1:// نمایش اساتیدی که این درس را ارایه داده اند
                     gridViewRelation.DataSource = coursesRepo.SelectAllTeachers(id);
                     SetTeachers(gridViewRelation);
                     break;
 
-                    case 2:
+                    case 2:// نمایش دروسی پیشنیاز این دروس
                     gridViewRelation.DataSource = coursesRepo.SelectAllRequiredCourses(id);
                     SetCourses(gridViewRelation);
                     break;
@@ -322,6 +335,11 @@ namespace CollageManager {
         #endregion
 
         #region Set GridView Culomn Values
+
+        /// <summary>
+        /// اطلاعات ستون های dataGridView که در ورودی می آید را با توجه با نوع جدول(مسول آموزش) تنظیم میکند
+        /// </summary>
+        /// <param name="gridView">محل ذخیره و نمایش اطلاعات خوانده شده از دیتابیس</param>
         private void SetHeadTeachs(DataGridView gridView)
         {
             #region
@@ -407,6 +425,10 @@ namespace CollageManager {
             #endregion
         }
 
+        /// <summary>
+        /// اطلاعات ستون های dataGridView که در ورودی می آید را با توجه با نوع جدول(دانشجویان) تنظیم میکند
+        /// </summary>
+        /// <param name="gridView">محل ذخیره و نمایش اطلاعات خوانده شده از دیتابیس</param>
         private void SetStudents(DataGridView gridView)
         {
             #region
@@ -528,6 +550,10 @@ namespace CollageManager {
             #endregion
         }
 
+        /// <summary>
+        /// اطلاعات ستون های dataGridView که در ورودی می آید را با توجه با نوع جدول(اساتید) تنظیم میکند
+        /// </summary>
+        /// <param name="gridView">محل ذخیره و نمایش اطلاعات خوانده شده از دیتابیس</param>
         private void SetTeachers(DataGridView gridView)
         {
             #region
@@ -613,6 +639,10 @@ namespace CollageManager {
             #endregion
         }
 
+        /// <summary>
+        /// اطلاعات ستون های dataGridView که در ورودی می آید را با توجه با نوع جدول(دروس) تنظیم میکند
+        /// </summary>
+        /// <param name="gridView">محل ذخیره و نمایش اطلاعات خوانده شده از دیتابیس</param>
         private void SetCourses(DataGridView gridView)
         {
             #region
@@ -964,12 +994,12 @@ namespace CollageManager {
 
         private void cmbRelationList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SetRelationList();
+            SetRelationListsData();
         }
 
         private void gridView_SelectionChanged(object sender, EventArgs e)
         {
-            SetRelationList();
+            SetRelationListsData();
         }
 
         private void radioBtnMouseClick(object sender, MouseEventArgs e)
