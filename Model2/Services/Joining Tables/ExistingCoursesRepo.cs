@@ -58,7 +58,20 @@ namespace Models2 {
 
         public bool Insert(int teacherId, int courseId)
         {
-            throw new NotImplementedException();
+            string queryString =
+
+                    "insert into ExistingCourses " +
+                    "(" +
+                            "TeacherId," +
+                            "CourseId" +
+                    ") " +
+                    "values" +
+                    "(" +
+                            $"{teacherId}, " +
+                            $"{courseId} " +
+                    ")";
+
+            return ExtensionMethods.ExecuteCommand(queryString, Connection);
         }
 
         public DataTable SelectAll()

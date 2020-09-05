@@ -32,7 +32,6 @@
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.gridView = new System.Windows.Forms.DataGridView();
@@ -43,6 +42,8 @@
             this.rBtnStudents = new System.Windows.Forms.RadioButton();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnDeleteRelation = new System.Windows.Forms.Button();
+            this.btnAddRelation = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewRelation)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -64,11 +65,12 @@
             // 
             this.gridViewRelation.AllowUserToAddRows = false;
             this.gridViewRelation.AllowUserToDeleteRows = false;
+            this.gridViewRelation.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gridViewRelation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridViewRelation.Location = new System.Drawing.Point(228, 20);
+            this.gridViewRelation.Location = new System.Drawing.Point(137, 20);
             this.gridViewRelation.Name = "gridViewRelation";
             this.gridViewRelation.ReadOnly = true;
-            this.gridViewRelation.Size = new System.Drawing.Size(813, 120);
+            this.gridViewRelation.Size = new System.Drawing.Size(904, 120);
             this.gridViewRelation.TabIndex = 6;
             // 
             // cmbRelationList
@@ -77,7 +79,7 @@
             this.cmbRelationList.FormattingEnabled = true;
             this.cmbRelationList.Location = new System.Drawing.Point(6, 20);
             this.cmbRelationList.Name = "cmbRelationList";
-            this.cmbRelationList.Size = new System.Drawing.Size(216, 21);
+            this.cmbRelationList.Size = new System.Drawing.Size(125, 21);
             this.cmbRelationList.TabIndex = 5;
             this.cmbRelationList.SelectedIndexChanged += new System.EventHandler(this.cmbRelationList_SelectedIndexChanged);
             // 
@@ -92,7 +94,6 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.btnAdd);
-            this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Controls.Add(this.btnDelete);
             this.groupBox2.Controls.Add(this.btnEdit);
             this.groupBox2.Controls.Add(this.gridView);
@@ -105,22 +106,13 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(804, 216);
+            this.btnAdd.Location = new System.Drawing.Point(966, 216);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
             this.btnAdd.TabIndex = 5;
             this.btnAdd.Text = "افزودن";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(6, 216);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "بیشتر";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // btnDelete
             // 
@@ -134,7 +126,7 @@
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(966, 216);
+            this.btnEdit.Location = new System.Drawing.Point(804, 216);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(75, 23);
             this.btnEdit.TabIndex = 2;
@@ -153,6 +145,7 @@
             this.gridView.ReadOnly = true;
             this.gridView.Size = new System.Drawing.Size(1035, 190);
             this.gridView.TabIndex = 1;
+            this.gridView.SelectionChanged += new System.EventHandler(this.gridView_SelectionChanged);
             // 
             // groupBox3
             // 
@@ -230,11 +223,32 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "جستجو :";
             // 
+            // btnDeleteRelation
+            // 
+            this.btnDeleteRelation.Location = new System.Drawing.Point(897, 487);
+            this.btnDeleteRelation.Name = "btnDeleteRelation";
+            this.btnDeleteRelation.Size = new System.Drawing.Size(75, 23);
+            this.btnDeleteRelation.TabIndex = 7;
+            this.btnDeleteRelation.Text = "حذف";
+            this.btnDeleteRelation.UseVisualStyleBackColor = true;
+            // 
+            // btnAddRelation
+            // 
+            this.btnAddRelation.Location = new System.Drawing.Point(978, 487);
+            this.btnAddRelation.Name = "btnAddRelation";
+            this.btnAddRelation.Size = new System.Drawing.Size(75, 23);
+            this.btnAddRelation.TabIndex = 8;
+            this.btnAddRelation.Text = "افزودن";
+            this.btnAddRelation.UseVisualStyleBackColor = true;
+            this.btnAddRelation.Click += new System.EventHandler(this.btnAddRelation_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1071, 489);
+            this.ClientSize = new System.Drawing.Size(1071, 515);
+            this.Controls.Add(this.btnAddRelation);
+            this.Controls.Add(this.btnDeleteRelation);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.groupBox3);
@@ -275,8 +289,9 @@
         private System.Windows.Forms.ComboBox cmbRelationList;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView gridViewRelation;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Button btnDeleteRelation;
+        private System.Windows.Forms.Button btnAddRelation;
     }
 }
 

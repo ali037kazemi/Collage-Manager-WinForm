@@ -10,5 +10,8 @@ namespace Models2 {
         bool Update(int courseId, Course course);
         bool Update(int courseId, string title, byte credit, bool creditType, int headTeachId);
         bool Delete(Course course);
+        DataTable SelectAllStudents(int courseId);
+        DataTable SelectAllTeachers(int courseId);
+        DataTable SelectAllRequiredCourses(int courseId);
     }
 }

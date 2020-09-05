@@ -55,28 +55,46 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormCourse.cs">
+    <Compile Include="JoiningForms\FormExistingCourse.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormCourse.Designer.cs">
+    <Compile Include="JoiningForms\FormExistingCourse.Designer.cs">
+      <DependentUpon>FormExistingCourse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JoiningForms\FormRequiredCourse.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JoiningForms\FormRequiredCourse.Designer.cs">
+      <DependentUpon>FormRequiredCourse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JoiningForms\FormStudentCourse.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JoiningForms\FormStudentCourse.Designer.cs">
+      <DependentUpon>FormStudentCourse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForms\FormCourse.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForms\FormCourse.Designer.cs">
       <DependentUpon>FormCourse.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormHeadTeach.cs">
+    <Compile Include="MainForms\FormHeadTeach.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormHeadTeach.Designer.cs">
+    <Compile Include="MainForms\FormHeadTeach.Designer.cs">
       <DependentUpon>FormHeadTeach.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormStudent.cs">
+    <Compile Include="MainForms\FormStudent.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormStudent.Designer.cs">
+    <Compile Include="MainForms\FormStudent.Designer.cs">
       <DependentUpon>FormStudent.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormTeacher.cs">
+    <Compile Include="MainForms\FormTeacher.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormTeacher.Designer.cs">
+    <Compile Include="MainForms\FormTeacher.Designer.cs">
       <DependentUpon>FormTeacher.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -84,16 +102,25 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormCourse.resx">
+    <EmbeddedResource Include="JoiningForms\FormExistingCourse.resx">
+      <DependentUpon>FormExistingCourse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JoiningForms\FormRequiredCourse.resx">
+      <DependentUpon>FormRequiredCourse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JoiningForms\FormStudentCourse.resx">
+      <DependentUpon>FormStudentCourse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForms\FormCourse.resx">
       <DependentUpon>FormCourse.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormHeadTeach.resx">
+    <EmbeddedResource Include="MainForms\FormHeadTeach.resx">
       <DependentUpon>FormHeadTeach.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormStudent.resx">
+    <EmbeddedResource Include="MainForms\FormStudent.resx">
       <DependentUpon>FormStudent.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormTeacher.resx">
+    <EmbeddedResource Include="MainForms\FormTeacher.resx">
       <DependentUpon>FormTeacher.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

@@ -15,5 +15,7 @@ namespace Models2 {
                     short entryYear, string postalCode, string field,
                     string grade, int headTeachId);
         bool Delete(Student student);
+        DataTable SelectAllTeachers(int studentId);
+        DataTable SelectAllCourses(int studentId);
     }
 }

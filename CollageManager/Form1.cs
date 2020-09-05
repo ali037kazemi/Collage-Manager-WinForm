@@ -1,4 +1,5 @@
-﻿using Models2;
+﻿using CollageManager.JoiningForms;
+using Models2;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -56,24 +57,9 @@ namespace CollageManager {
             preCoursesRepo = new PreCoursesRepo(Connection);
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            if (CreatDatabase())
-            {
-                if (CreateTables())
-                {
-                    BindGrid();
-                }
-                else
-                {
-                    MessageBox.Show("مشکلی بوجود آمده است");
-                }
-            }
-            else
-            {
-                MessageBox.Show("مشکلی بوجود آمده است");
-            }
-        }
+
+
+
 
         private bool CreatDatabase()
         {
@@ -94,7 +80,9 @@ namespace CollageManager {
 
                 return true;
             }
+#pragma warning disable CS0168 // The variable 'e' is declared but never used
             catch (Exception e)
+#pragma warning restore CS0168 // The variable 'e' is declared but never used
             {
                 return false;
             }
@@ -104,41 +92,239 @@ namespace CollageManager {
             }
         }
 
-        /// <summary>
-        /// رفرش کردن اطلاعات
-        /// </summary>
+        private bool CreateTables()
+        {
+            if (!headTeachsRepo.CreateTable())
+            {
+                return false;
+            }
+            if (!studentsRepo.CreateTable())
+            {
+                return false;
+            }
+            if (!teachersRepo.CreateTable())
+            {
+                return false;
+            }
+            if (!coursesRepo.CreateTable())
+            {
+                return false;
+            }
+            if (!existingCoursesRepo.CreateTable())
+            {
+                return false;
+            }
+            if (!studentCoursesRepo.CreateTable())
+            {
+                return false;
+            }
+            if (!studentTeacherRepo.CreateTable())
+            {
+                return false;
+            }
+            if (!preCoursesRepo.CreateTable())
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private void SetRelationList()
+        {
+            if (rBtnHeadTeachs.Checked)
+            {
+                SetHeadTeachsRelationList();
+            }
+            else if (rBtnStudents.Checked)
+            {
+                SetStudentsRelationList();
+            }
+            else if (rBtnTeachers.Checked)
+            {
+                SetTeachersRelationList();
+            }
+            else if (rBtnCourses.Checked)
+            {
+                SetCoursesRelationList();
+            }
+        }
+
         private void BindGrid()
         {
             // خودش ستون ها رو نمیسازه و ما باید بهش بگیم بره از کجا بگیره بسازیم
             gridView.AutoGenerateColumns = false;
-
-            //gridViewRelation.DataSource = existingCoursesRepo.SelectByTeacherId(1);
+            //gridViewRelation.AutoGenerateColumns = false;
 
             if (rBtnHeadTeachs.Checked)
             {
                 gridView.DataSource = headTeachsRepo.SelectAll();
-                SetHeadTeachs();
-                SetRelationListData();
+                SetHeadTeachs(this.gridView);
+                SetHeadTeachsRelationList();
             }
             if (rBtnStudents.Checked)
             {
                 gridView.DataSource = studentsRepo.SelectAll();
-                SetStudents();
+                SetStudents(this.gridView);
+                SetStudentsRelationList();
             }
             if (rBtnTeachers.Checked)
             {
                 gridView.DataSource = teachersRepo.SelectAll();
-                SetTeachers();
+                SetTeachers(this.gridView);
+                SetTeachersRelationList();
             }
             if (rBtnCourses.Checked)
             {
                 gridView.DataSource = coursesRepo.SelectAll();
-                SetCourses();
+                SetCourses(this.gridView);
+                SetCoursesRelationList();
             }
         }
 
+        #region Set Relation Lists
+        private void SetHeadTeachsRelationList()
+        {
+            btnAddRelation.Visible = false;
+            btnDeleteRelation.Visible = false;
+            if (gridView.CurrentRow != null)
+            {
+                int id = 0;
+                if (gridView.CurrentRow.Cells[0].Value != null)
+                {
+                    id = int.Parse(gridView.CurrentRow.Cells[0].Value.ToString());
+                }
+
+                switch (cmbRelationList.SelectedIndex)
+                {
+                    case 0:
+                    gridViewRelation.DataSource = headTeachsRepo.SelectAllStudents(id);
+                    SetStudents(gridViewRelation);
+                    break;
+
+                    case 1:
+                    gridViewRelation.DataSource = headTeachsRepo.SelectAllCourses(id);
+                    SetCourses(gridViewRelation);
+                    break;
+
+                    default:
+                    cmbRelationList.SelectedIndex = 0;
+                    break;
+                }
+            }
+        }
+
+        private void SetStudentsRelationList()
+        {
+            if (gridView.CurrentRow != null)
+            {
+                int id = 0;
+                if (gridView.CurrentRow.Cells[0].Value != null)
+                {
+                    id = int.Parse(gridView.CurrentRow.Cells[0].Value.ToString());
+                }
+
+                switch (cmbRelationList.SelectedIndex)
+                {
+                    case 0:
+                    btnAddRelation.Visible = false;
+                    btnDeleteRelation.Visible = false;
+                    gridViewRelation.DataSource = studentsRepo.SelectAllTeachers(id);
+                    SetTeachers(gridViewRelation);
+                    break;
+
+                    case 1:
+                    btnAddRelation.Visible = true;
+                    btnDeleteRelation.Visible = true;
+                    gridViewRelation.DataSource = studentsRepo.SelectAllCourses(id);
+                    SetCourses(gridViewRelation);
+                    break;
+
+                    default:
+                    btnAddRelation.Visible = false;
+                    btnDeleteRelation.Visible = false;
+                    cmbRelationList.SelectedIndex = 0;
+                    break;
+                }
+            }
+        }
+
+        private void SetTeachersRelationList()
+        {
+            if (gridView.CurrentRow != null)
+            {
+                int id = 0;
+                if (gridView.CurrentRow.Cells[0].Value != null)
+                {
+                    id = int.Parse(gridView.CurrentRow.Cells[0].Value.ToString());
+                }
+
+                switch (cmbRelationList.SelectedIndex)
+                {
+                    case 0:
+                    btnAddRelation.Visible = false;
+                    btnDeleteRelation.Visible = false;
+                    gridViewRelation.DataSource = teachersRepo.SelectAllStudents(id);
+                    SetStudents(gridViewRelation);
+                    break;
+
+                    case 1:
+                    btnAddRelation.Visible = true;
+                    btnDeleteRelation.Visible = true;
+                    gridViewRelation.DataSource = teachersRepo.SelectAllCourses(id);
+                    SetCourses(gridViewRelation);
+                    break;
+
+                    default:
+                    btnAddRelation.Visible = false;
+                    btnDeleteRelation.Visible = false;
+                    cmbRelationList.SelectedIndex = 0;
+                    break;
+                }
+            }
+        }
+
+        private void SetCoursesRelationList()
+        {
+            if (gridView.CurrentRow != null)
+            {
+                btnAddRelation.Visible = true;
+                btnDeleteRelation.Visible = true;
+                int id = 0;
+                if (gridView.CurrentRow.Cells[0].Value != null)
+                {
+                    id = int.Parse(gridView.CurrentRow.Cells[0].Value.ToString());
+                }
+
+                switch (cmbRelationList.SelectedIndex)
+                {
+                    case 0:
+                    gridViewRelation.DataSource = coursesRepo.SelectAllStudents(id);
+                    SetStudents(gridViewRelation);
+                    break;
+
+                    case 1:
+                    gridViewRelation.DataSource = coursesRepo.SelectAllTeachers(id);
+                    SetTeachers(gridViewRelation);
+                    break;
+
+                    case 2:
+                    gridViewRelation.DataSource = coursesRepo.SelectAllRequiredCourses(id);
+                    SetCourses(gridViewRelation);
+                    break;
+
+                    default:
+                    btnAddRelation.Visible = false;
+                    btnDeleteRelation.Visible = false;
+                    cmbRelationList.SelectedIndex = 0;
+                    break;
+                }
+            }
+        }
+        #endregion
+
         #region Set Grid Culomn Values
-        private void SetHeadTeachs()
+        private void SetHeadTeachs(DataGridView gridView)
         {
             #region
             DataGridViewTextBoxColumn HeadTeachId = new DataGridViewTextBoxColumn();
@@ -223,7 +409,7 @@ namespace CollageManager {
             #endregion
         }
 
-        private void SetStudents()
+        private void SetStudents(DataGridView gridView)
         {
             #region
             DataGridViewTextBoxColumn StudentId = new DataGridViewTextBoxColumn();
@@ -344,7 +530,7 @@ namespace CollageManager {
             #endregion
         }
 
-        private void SetTeachers()
+        private void SetTeachers(DataGridView gridView)
         {
             #region
             DataGridViewTextBoxColumn TeacherId = new DataGridViewTextBoxColumn();
@@ -429,7 +615,7 @@ namespace CollageManager {
             #endregion
         }
 
-        private void SetCourses()
+        private void SetCourses(DataGridView gridView)
         {
             #region
             DataGridViewTextBoxColumn CourseId = new DataGridViewTextBoxColumn();
@@ -488,125 +674,26 @@ namespace CollageManager {
         }
         #endregion
 
-        private bool CreateTables()
+        #region Events
+        private void Form1_Load(object sender, EventArgs e)
         {
-            if (!headTeachsRepo.CreateTable())
+            if (CreatDatabase())
             {
-                return false;
-            }
-            if (!studentsRepo.CreateTable())
-            {
-                return false;
-            }
-            if (!teachersRepo.CreateTable())
-            {
-                return false;
-            }
-            if (!coursesRepo.CreateTable())
-            {
-                return false;
-            }
-            if (!existingCoursesRepo.CreateTable())
-            {
-                return false;
-            }
-            if (!studentCoursesRepo.CreateTable())
-            {
-                return false;
-            }
-            if (!studentTeacherRepo.CreateTable())
-            {
-                return false;
-            }
-            if (!preCoursesRepo.CreateTable())
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-
-
-
-
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            BindGrid();
-        }
-
-        private void radioBtnMouseClick(object sender, MouseEventArgs e)
-        {
-            cmbRelationList.Items.Clear();
-
-            cmbRelationList.Items.Add("دانشجویان");
-            cmbRelationList.Items.Add("دروس");
-
-            BindGrid();
-        }
-
-        private void txtSearch_TextChanged(object sender, EventArgs e)
-        {
-            string searchStr = txtSearch.Text.Trim();
-
-            if (rBtnHeadTeachs.Checked)
-            {
-                if (searchStr != "")
+                if (CreateTables())
                 {
-                    gridView.DataSource = headTeachsRepo.Search(searchStr);
+                    BindGrid();
                 }
                 else
                 {
-                    gridView.DataSource = headTeachsRepo.SelectAll();
+                    MessageBox.Show("مشکلی بوجود آمده است");
                 }
-                //SetHeadTeachs();
-            }
-            else if (rBtnStudents.Checked)
-            {
-                if (searchStr != "")
-                {
-                    gridView.DataSource = studentsRepo.Search(searchStr);
-                }
-                else
-                {
-                    gridView.DataSource = studentsRepo.SelectAll();
-                }
-                //SetStudents();
-            }
-            else if (rBtnTeachers.Checked)
-            {
-                if (searchStr != "")
-                {
-                    gridView.DataSource = teachersRepo.Search(searchStr);
-                }
-                else
-                {
-                    gridView.DataSource = teachersRepo.SelectAll();
-                }
-                //SetTeachers();
-            }
-            else if (rBtnCourses.Checked)
-            {
-                if (searchStr != "")
-                {
-                    gridView.DataSource = coursesRepo.Search(searchStr);
-                }
-                else
-                {
-                    gridView.DataSource = coursesRepo.SelectAll();
-                }
-                //SetCourses();
             }
             else
             {
-                MessageBox.Show("ابتدا یک لیست را برای جستجو انتخاب کنید", "اخطار");
+                MessageBox.Show("مشکلی بوجود آمده است");
             }
         }
 
-
-
-
-        
         private void btnAdd_Click(object sender, EventArgs e)
         {
 
@@ -645,6 +732,55 @@ namespace CollageManager {
             else
             {
                 MessageBox.Show("لطفا یک گزینه را برای حذف از لیست انتخاب کنید", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            if (gridView.CurrentRow != null)
+            {
+                int id = int.Parse(gridView.CurrentRow.Cells[0].Value.ToString());
+
+                if (rBtnHeadTeachs.Checked)
+                {
+                    FormHeadTeach form = new FormHeadTeach(Connection);
+                    form.HeadTeachId = id;
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        BindGrid();
+                    }
+                }
+                else if (rBtnStudents.Checked)
+                {
+                    FormStudent form = new FormStudent(Connection);
+                    form.StudentId = id;
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        BindGrid();
+                    }
+                }
+                else if (rBtnTeachers.Checked)
+                {
+                    FormTeacher form = new FormTeacher(Connection);
+                    form.TeacherId = id;
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        BindGrid();
+                    }
+                }
+                else if (rBtnCourses.Checked)
+                {
+                    FormCourse form = new FormCourse(Connection);
+                    form.CourseId = id;
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        BindGrid();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("لطفا یک گزینه را برای ویرایش از لیست انتخاب کنید", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
 
@@ -720,109 +856,138 @@ namespace CollageManager {
             }
         }
 
-        private void btnEdit_Click(object sender, EventArgs e)
+        private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            if (gridView.CurrentRow != null)
-            {
-                int id = int.Parse(gridView.CurrentRow.Cells[0].Value.ToString());
+            string searchStr = txtSearch.Text.Trim();
 
-                if (rBtnHeadTeachs.Checked)
+            if (rBtnHeadTeachs.Checked)
+            {
+                if (searchStr != "")
                 {
-                    FormHeadTeach form = new FormHeadTeach(Connection);
-                    form.HeadTeachId = id;
-                    if (form.ShowDialog() == DialogResult.OK)
-                    {
-                        BindGrid();
-                    }
-                }
-                else if (rBtnStudents.Checked)
-                {
-                    FormStudent form = new FormStudent(Connection);
-                    form.StudentId = id;
-                    if (form.ShowDialog() == DialogResult.OK)
-                    {
-                        BindGrid();
-                    }
-                }
-                else if (rBtnTeachers.Checked)
-                {
-                    FormTeacher form = new FormTeacher(Connection);
-                    form.TeacherId = id;
-                    if (form.ShowDialog() == DialogResult.OK)
-                    {
-                        BindGrid();
-                    }
-                }
-                else if (rBtnCourses.Checked)
-                {
-                    FormCourse form = new FormCourse(Connection);
-                    form.CourseId = id;
-                    if (form.ShowDialog() == DialogResult.OK)
-                    {
-                        BindGrid();
-                    }
+                    gridView.DataSource = headTeachsRepo.Search(searchStr);
                 }
                 else
                 {
-                    MessageBox.Show("لطفا یک گزینه را برای ویرایش از لیست انتخاب کنید", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    gridView.DataSource = headTeachsRepo.SelectAll();
                 }
+                //SetHeadTeachs();
             }
-        }
-
-
-
-
-
-        private void SetRelationListData()
-        {
-            if (rBtnHeadTeachs.Checked)
+            else if (rBtnStudents.Checked)
             {
-                SetHeadTeachsRelationList();
-            }
-            if (rBtnStudents.Checked)
-            {
-                gridView.DataSource = studentsRepo.SelectAll();
-                SetStudents();
-            }
-            if (rBtnTeachers.Checked)
-            {
-                gridView.DataSource = teachersRepo.SelectAll();
-                SetTeachers();
-            }
-            if (rBtnCourses.Checked)
-            {
-                gridView.DataSource = coursesRepo.SelectAll();
-                SetCourses();
-            }
-        }
-
-        #region Set Relation Lists
-        private void SetHeadTeachsRelationList()
-        {
-            if (gridView.CurrentRow != null)
-            {
-                int id = int.Parse(gridView.CurrentRow.Cells[0].Value.ToString());
-
-                switch (cmbRelationList.SelectedIndex)
+                if (searchStr != "")
                 {
-                    case 0:
-                    gridViewRelation.DataSource = headTeachsRepo.SelectAllStudents(id);
-                    break;
+                    gridView.DataSource = studentsRepo.Search(searchStr);
+                }
+                else
+                {
+                    gridView.DataSource = studentsRepo.SelectAll();
+                }
+                //SetStudents();
+            }
+            else if (rBtnTeachers.Checked)
+            {
+                if (searchStr != "")
+                {
+                    gridView.DataSource = teachersRepo.Search(searchStr);
+                }
+                else
+                {
+                    gridView.DataSource = teachersRepo.SelectAll();
+                }
+                //SetTeachers();
+            }
+            else if (rBtnCourses.Checked)
+            {
+                if (searchStr != "")
+                {
+                    gridView.DataSource = coursesRepo.Search(searchStr);
+                }
+                else
+                {
+                    gridView.DataSource = coursesRepo.SelectAll();
+                }
+                //SetCourses();
+            }
+            else
+            {
+                MessageBox.Show("ابتدا یک لیست را برای جستجو انتخاب کنید", "اخطار");
+            }
+        }
 
-                    case 1:
-                    gridViewRelation.DataSource = headTeachsRepo.SelectAllCourses(id);
-                    break;
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            BindGrid();
+        }
 
-                    default:
-                    break;
+        private void btnAddRelation_Click(object sender, EventArgs e)
+        {
+            if ((rBtnCourses.Checked && cmbRelationList.SelectedIndex == 1) ||
+                (rBtnTeachers.Checked && cmbRelationList.SelectedIndex == 1))
+            {
+                FormExistingCourse form = new FormExistingCourse(Connection);
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    BindGrid();
+                }
+            }
+            if ((rBtnCourses.Checked && cmbRelationList.SelectedIndex == 2))
+            {
+                FormRequiredCourse form = new FormRequiredCourse(Connection);
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    BindGrid();
+                }
+            }
+            if ((rBtnCourses.Checked && cmbRelationList.SelectedIndex == 0) ||
+                (rBtnStudents.Checked && cmbRelationList.SelectedIndex == 1))
+            {
+                FormStudentCourse form = new FormStudentCourse(Connection);
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    BindGrid();
                 }
             }
         }
-        #endregion
 
         private void cmbRelationList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SetHeadTeachsRelationList();
+            SetRelationList();
         }
+
+        private void gridView_SelectionChanged(object sender, EventArgs e)
+        {
+            SetRelationList();
+        }
+
+        private void radioBtnMouseClick(object sender, MouseEventArgs e)
+        {
+            cmbRelationList.Items.Clear();
+            //cmbRelationList.DataSource = null;
+
+            if (rBtnHeadTeachs.Checked)
+            {
+                cmbRelationList.Items.Add("دانشجویان");
+                cmbRelationList.Items.Add("دروس");
+            }
+            else if (rBtnStudents.Checked)
+            {
+                cmbRelationList.Items.Add("اساتید");
+                cmbRelationList.Items.Add("دروس");
+            }
+            else if (rBtnTeachers.Checked)
+            {
+                cmbRelationList.Items.Add("دانشجویان");
+                cmbRelationList.Items.Add("دروس");
+            }
+            else if (rBtnCourses.Checked)
+            {
+                cmbRelationList.Items.Add("دانشجویان");
+                cmbRelationList.Items.Add("اساتید");
+                cmbRelationList.Items.Add("دروس پیشنیاز");
+            }
+
+            BindGrid();
+        }
+        #endregion Events
     }
 }

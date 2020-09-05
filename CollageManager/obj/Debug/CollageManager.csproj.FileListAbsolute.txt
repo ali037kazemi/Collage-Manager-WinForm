@@ -36,3 +36,6 @@ C:\Users\M.K\Desktop\Ali\Git-Repo\Collage-Manager-WinForm\CollageManager\obj\Deb
 C:\Users\M.K\Desktop\Ali\Git-Repo\Collage-Manager-WinForm\CollageManager\obj\Debug\CollageManager.csproj.CopyComplete
 C:\Users\M.K\Desktop\Ali\Git-Repo\Collage-Manager-WinForm\CollageManager\obj\Debug\CollageManager.exe
 C:\Users\M.K\Desktop\Ali\Git-Repo\Collage-Manager-WinForm\CollageManager\obj\Debug\CollageManager.pdb
+C:\Users\M.K\Desktop\Ali\Git-Repo\Collage-Manager-WinForm\CollageManager\obj\Debug\CollageManager.JoiningForms.FormExistingCourse.resources
+C:\Users\M.K\Desktop\Ali\Git-Repo\Collage-Manager-WinForm\CollageManager\obj\Debug\CollageManager.JoiningForms.FormRequiredCourse.resources
+C:\Users\M.K\Desktop\Ali\Git-Repo\Collage-Manager-WinForm\CollageManager\obj\Debug\CollageManager.JoiningForms.FormStudentCourse.resources

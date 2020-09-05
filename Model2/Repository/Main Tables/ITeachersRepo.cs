@@ -13,5 +13,7 @@ namespace Models2 {
                     string nationalCode, string phoneNumber, string address,
                     string degree);
         bool Delete(Teacher teacher);
+        DataTable SelectAllStudents(int teacherId);
+        DataTable SelectAllCourses(int teacherId);
     }
 }

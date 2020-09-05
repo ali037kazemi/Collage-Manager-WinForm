@@ -11,17 +11,17 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CollageManager {
-    public partial class FormHeadTeach : Form {
+    public partial class FormTeacher : Form {
 
         public SqlConnection Connection { get; }
-        private IHeadTeachsRepo headTeachsRepo;
-        public int? HeadTeachId { get; set; }
+        private ITeachersRepo teachersRepo;
+        public int? TeacherId { get; set; }
 
-        public FormHeadTeach(SqlConnection connection)
+        public FormTeacher(SqlConnection connection)
         {
-            HeadTeachId = null;
+            TeacherId = null;
             Connection = connection;
-            headTeachsRepo = new HeadTeachsRepo(connection);
+            teachersRepo = new TeachersRepo(connection);
             InitializeComponent();
         }
 
@@ -47,14 +47,24 @@ namespace CollageManager {
                 MessageBox.Show("لطفا کد ملی را وارد کنید", "هشدار", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
+            if (txtNationalCode.Text.Length != 10)
+            {
+                MessageBox.Show("کد ملی 10 رقم باشد", "هشدار", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
             if (string.IsNullOrWhiteSpace(txtPhone.Text))
             {
                 MessageBox.Show("لطفا شماره تلفن را وارد کنید", "هشدار", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (string.IsNullOrWhiteSpace(txtField.Text))
+            if (txtPhone.Text.Length != 11)
             {
-                MessageBox.Show("لطفا رشته را وارد کنید", "هشدار", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("شماره تلفن 11 رقم باشد", "هشدار", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(txtDegree.Text))
+            {
+                MessageBox.Show("لطفا مدرک تحصیلی را وارد کنید", "هشدار", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             if (string.IsNullOrWhiteSpace(txtAddress.Text))
@@ -70,18 +80,18 @@ namespace CollageManager {
         {
             if (ValidateInputs())
             {
-                HeadTeach ht = new HeadTeach(txtNationalCode.Text, txtName.Text, txtFamily.Text,
-                            txtFatherName.Text, txtPhone.Text, txtAddress.Text, txtField.Text);
+                Teacher t = new Teacher(txtNationalCode.Text, txtName.Text, txtFamily.Text,
+                            txtFatherName.Text, txtPhone.Text, txtAddress.Text, txtDegree.Text);
 
                 bool isSuccess;
 
-                if (HeadTeachId == null)
+                if (TeacherId == null)
                 {
-                    isSuccess = headTeachsRepo.Insert(ht);
+                    isSuccess = teachersRepo.Insert(t);
                 }
                 else
                 {
-                    isSuccess = headTeachsRepo.Update((int)HeadTeachId, ht);
+                    isSuccess = teachersRepo.Update((int)TeacherId, t);
                 }
 
                 if (isSuccess)
@@ -96,24 +106,24 @@ namespace CollageManager {
             }
         }
 
-        private void FormHeadTeach_Load(object sender, EventArgs e)
+        private void FormTeacher_Load(object sender, EventArgs e)
         {
-            if (HeadTeachId == null)
+            if (TeacherId == null)
             {
-                this.Text = "افزودن مسول آموزش";
+                this.Text = "افزودن استاد";
             }
             else
             {
-                this.Text = "ویرایش مسول آموزش";
+                this.Text = "ویرایش استاد";
 
-                DataTable table = headTeachsRepo.SelectById((int)HeadTeachId);
+                DataTable table = teachersRepo.SelectById((int)TeacherId);
                 txtName.Text = table.Rows[0][2].ToString();
                 txtFamily.Text = table.Rows[0][3].ToString();
                 txtFatherName.Text = table.Rows[0][4].ToString();
                 txtNationalCode.Text = table.Rows[0][1].ToString();
                 txtPhone.Text = table.Rows[0][5].ToString();
                 txtAddress.Text = table.Rows[0][6].ToString();
-                txtField.Text = table.Rows[0][7].ToString();
+                txtDegree.Text = table.Rows[0][7].ToString();
                 btnConfirm.Text = "ویرایش";
             }
         }

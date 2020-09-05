@@ -61,7 +61,7 @@ namespace Models2 {
                 transaction.Commit();
                 return table;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 transaction.Rollback();
                 return null;
@@ -92,7 +92,7 @@ namespace Models2 {
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
             }

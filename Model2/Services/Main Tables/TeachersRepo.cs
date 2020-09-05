@@ -142,5 +142,33 @@ namespace Models2 {
 
             return ExtensionMethods.ExecuteReadCommand(queryString, Connection);
         }
+
+        public DataTable SelectAllStudents(int teacherId)
+        {
+            string queryString =
+                        "select s.* " +
+                        "from StudentTeachers st " +
+                        "Join Teachers t " +
+                        "On t.TeacherId = st.TeacherId " +
+                        "Join Students s " +
+                        "On s.StudentId = st.StudentId " +
+                        "Where t.TeacherId = " + teacherId;
+
+            return ExtensionMethods.ExecuteReadCommand(queryString, Connection);
+        }
+
+        public DataTable SelectAllCourses(int teacherId)
+        {
+            string queryString =
+                        "select c.* " +
+                        "from ExistingCourses e " +
+                        "Join Courses c " +
+                        "On c.CourseId = e.CourseId " +
+                        "Join Teachers t " +
+                        "On t.TeacherId = e.TeacherId " +
+                        "Where t.TeacherId = " + teacherId;
+
+            return ExtensionMethods.ExecuteReadCommand(queryString, Connection);
+        }
     }
 }

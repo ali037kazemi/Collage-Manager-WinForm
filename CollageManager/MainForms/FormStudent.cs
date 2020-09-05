@@ -199,9 +199,19 @@ namespace CollageManager {
                 MessageBox.Show("لطفا کد ملی را وارد کنید", "هشدار", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
+            if (txtNationalCode.Text.Length != 10)
+            {
+                MessageBox.Show("کد ملی 10 رقم باشد", "هشدار", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
             if (string.IsNullOrWhiteSpace(txtPhone.Text))
             {
                 MessageBox.Show("لطفا شماره تلفن را وارد کنید", "هشدار", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (txtPhone.Text.Length != 11)
+            {
+                MessageBox.Show("شماره تلفن 11 رقم باشد", "هشدار", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             if (string.IsNullOrWhiteSpace(txtEntryYear.Text))
@@ -219,7 +229,7 @@ namespace CollageManager {
                 MessageBox.Show("لطفا مقطع تحصیلی را وارد کنید", "هشدار", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (string.IsNullOrWhiteSpace(txtPostalCode.Text))
+            if (string.IsNullOrWhiteSpace(txtPostalCode.Text) || txtPostalCode.Text.Length != 10)
             {
                 MessageBox.Show("لطفا کد پستی 10 رقمی را وارد کنید", "هشدار", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
