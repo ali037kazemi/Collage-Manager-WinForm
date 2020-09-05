@@ -231,6 +231,7 @@
             this.btnDeleteRelation.TabIndex = 7;
             this.btnDeleteRelation.Text = "حذف";
             this.btnDeleteRelation.UseVisualStyleBackColor = true;
+            this.btnDeleteRelation.Click += new System.EventHandler(this.btnDeleteRelation_Click);
             // 
             // btnAddRelation
             // 

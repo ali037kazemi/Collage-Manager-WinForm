@@ -28,6 +28,10 @@ namespace CollageManager {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// چک کردن ورودی های کابر
+        /// </summary>
+        /// <returns>در صورت وجود ایرادی در ورودی های بعد از نمایش خطا مقدار غلط را برمیگرداند</returns>
         private bool ValidateInputs()
         {
             if (string.IsNullOrWhiteSpace(txtTitle.Text))
@@ -57,8 +61,6 @@ namespace CollageManager {
         {
             if (ValidateInputs())
             {
-                //string headTeach = boxHeadTeachId.SelectedItem.ToString();
-                //int headTeachId = int.Parse(headTeach.Substring(headTeach.Length - 1));
                 int headTeachId = (int)boxHeadTeachId.SelectedValue;
 
                 Course c = new Course(txtTitle.Text, (byte)txtCredit.Value, creditType.Checked, headTeachId);
@@ -81,14 +83,14 @@ namespace CollageManager {
                 }
                 else
                 {
-                    MessageBox.Show("مشکلی در افزودن اطلاعات بوجود آمده است", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("مشکلی در افزودن یا ویرایش اطلاعات بوجود آمده است", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
         private void FormCourse_Load(object sender, EventArgs e)
         {
-
+            #region بارگذاری اطلاعات مسولین آموزش
             boxHeadTeachId.DisplayMember = "FullName";
             boxHeadTeachId.ValueMember = "Id";
 
@@ -106,6 +108,7 @@ namespace CollageManager {
             }
 
             boxHeadTeachId.DataSource = fullHeadTeachs;
+            #endregion
 
             if (CourseId == null)
             {

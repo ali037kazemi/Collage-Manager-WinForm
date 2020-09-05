@@ -157,7 +157,6 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FormCourse";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.Text = "FormCourse";
             this.Load += new System.EventHandler(this.FormCourse_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

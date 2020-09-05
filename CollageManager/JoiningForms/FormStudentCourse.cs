@@ -231,6 +231,7 @@ namespace CollageManager.JoiningForms {
                 MessageBox.Show("لطفا ابتدا یک دانشجو را انتخاب کنید");
                 return;
             }
+
             int courseId;
             if (dgvCourses.CurrentRow != null)
             {

@@ -152,9 +152,7 @@ namespace CollageManager {
 
         private void BindGrid()
         {
-            // خودش ستون ها رو نمیسازه و ما باید بهش بگیم بره از کجا بگیره بسازیم
-            gridView.AutoGenerateColumns = false;
-            //gridViewRelation.AutoGenerateColumns = false;
+            //gridView.AutoGenerateColumns = false;
 
             if (rBtnHeadTeachs.Checked)
             {
@@ -323,7 +321,7 @@ namespace CollageManager {
         }
         #endregion
 
-        #region Set Grid Culomn Values
+        #region Set GridView Culomn Values
         private void SetHeadTeachs(DataGridView gridView)
         {
             #region
@@ -681,11 +679,12 @@ namespace CollageManager {
             {
                 if (CreateTables())
                 {
+                    // بارگیری اطلاعات
                     BindGrid();
                 }
                 else
                 {
-                    MessageBox.Show("مشکلی بوجود آمده است");
+                    MessageBox.Show("مشکلی در ساخت جداول بوجود آمده است بوجود آمده است");
                 }
             }
             else
@@ -694,6 +693,9 @@ namespace CollageManager {
             }
         }
 
+        /// <summary>
+        /// رویداد اضافه کردن اطلاعات به جداول اصلی
+        /// </summary>
         private void btnAdd_Click(object sender, EventArgs e)
         {
 
@@ -735,6 +737,9 @@ namespace CollageManager {
             }
         }
 
+        /// <summary>
+        /// رویداد ویرایش کردن اطلاعات جداول اصلی
+        /// </summary>
         private void btnEdit_Click(object sender, EventArgs e)
         {
             if (gridView.CurrentRow != null)
@@ -784,8 +789,12 @@ namespace CollageManager {
             }
         }
 
+        /// <summary>
+        /// رویداد حذف کردن از اطلاعات جداول اصلی
+        /// </summary>
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            // اگر رکوردی برای حذف انتخاب شده بود
             if (gridView.CurrentRow != null)
             {
                 if (rBtnHeadTeachs.Checked)
@@ -870,7 +879,6 @@ namespace CollageManager {
                 {
                     gridView.DataSource = headTeachsRepo.SelectAll();
                 }
-                //SetHeadTeachs();
             }
             else if (rBtnStudents.Checked)
             {
@@ -882,7 +890,6 @@ namespace CollageManager {
                 {
                     gridView.DataSource = studentsRepo.SelectAll();
                 }
-                //SetStudents();
             }
             else if (rBtnTeachers.Checked)
             {
@@ -894,7 +901,6 @@ namespace CollageManager {
                 {
                     gridView.DataSource = teachersRepo.SelectAll();
                 }
-                //SetTeachers();
             }
             else if (rBtnCourses.Checked)
             {
@@ -906,7 +912,6 @@ namespace CollageManager {
                 {
                     gridView.DataSource = coursesRepo.SelectAll();
                 }
-                //SetCourses();
             }
             else
             {
@@ -914,13 +919,21 @@ namespace CollageManager {
             }
         }
 
+        /// <summary>
+        /// رویداد به روز رسانی اطلاعات
+        /// </summary>
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             BindGrid();
         }
 
+        /// <summary>
+        /// رویداد اضافه کردن اطلاعات به جداول فرعی(رابطه چند به چند)
+        /// </summary>
         private void btnAddRelation_Click(object sender, EventArgs e)
         {
+            // ابتدا برای اطلاعات جدول پایین که امکان تغییر جداول هست چک میکند
+            // سپس بعد از انجام عملیات افزودن اطلاعات دوباره اطلاعات بارگذاری میشود
             if ((rBtnCourses.Checked && cmbRelationList.SelectedIndex == 1) ||
                 (rBtnTeachers.Checked && cmbRelationList.SelectedIndex == 1))
             {
@@ -961,9 +974,9 @@ namespace CollageManager {
 
         private void radioBtnMouseClick(object sender, MouseEventArgs e)
         {
-            cmbRelationList.Items.Clear();
-            //cmbRelationList.DataSource = null;
+            cmbRelationList.Items.Clear();// با تغییر لیست اطلاعات ستونها پاک میشوند و از نو دوباره تنظیم میشوند
 
+            // تنظیم لیست انتخاب اطلاعات جداول فرعی(رابطه چند به چند)
             if (rBtnHeadTeachs.Checked)
             {
                 cmbRelationList.Items.Add("دانشجویان");
@@ -985,8 +998,49 @@ namespace CollageManager {
                 cmbRelationList.Items.Add("اساتید");
                 cmbRelationList.Items.Add("دروس پیشنیاز");
             }
-
+            
+            // سپس اطلاعات دوباره باگذاری میشود
             BindGrid();
+        }
+
+        /// <summary>
+        /// رویداد حذف اطلاعات از جداول فرعی(رابطه چند به چند)
+        /// </summary>
+        private void btnDeleteRelation_Click(object sender, EventArgs e)
+        {
+            //if ((rBtnCourses.Checked && cmbRelationList.SelectedIndex == 1) ||
+            //    (rBtnTeachers.Checked && cmbRelationList.SelectedIndex == 1))
+            //{
+            //    string fullName = gridView.CurrentRow.Cells[1].Value.ToString() + " " +
+            //            gridView.CurrentRow.Cells[2].Value.ToString();
+            //    if (MessageBox.Show($"آیا از حذف {fullName} مطمین هستید؟", "توجه",
+            //        MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            //    {
+            //        int id = int.Parse(gridView.CurrentRow.Cells[0].Value.ToString());
+            //        if (!headTeachsRepo.Delete(id))
+            //        {
+            //            MessageBox.Show("مشکلی در حذف رکورد پیش آمده است. درخواست اجرا نشد.\n(ممکن است تداخلی با اطلاعات دیگر بوجود آمده باشد)", "خطا",
+            //                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //        }
+            //    }
+            //}
+            //if ((rBtnCourses.Checked && cmbRelationList.SelectedIndex == 2))
+            //{
+            //    FormRequiredCourse form = new FormRequiredCourse(Connection);
+            //    if (form.ShowDialog() == DialogResult.OK)
+            //    {
+            //        BindGrid();
+            //    }
+            //}
+            //if ((rBtnCourses.Checked && cmbRelationList.SelectedIndex == 0) ||
+            //    (rBtnStudents.Checked && cmbRelationList.SelectedIndex == 1))
+            //{
+            //    FormStudentCourse form = new FormStudentCourse(Connection);
+            //    if (form.ShowDialog() == DialogResult.OK)
+            //    {
+            //        BindGrid();
+            //    }
+            //}
         }
         #endregion Events
     }
