@@ -65,34 +65,34 @@ namespace CollageManager {
 
 
 
-        private bool CreatDatabase()
-        {
-            string queryString =
-                    "use master \n" +
-                    "IF DB_ID('Collage') <= 0 " +
-                        "CREATE DATABASE Collage ";
+        //        private bool CreatDatabase()
+        //        {
+        //            string queryString =
+        //                    "use master \n" +
+        //                    "IF DB_ID('Collage') <= 0 " +
+        //                        "CREATE DATABASE Collage ";
 
-            try
-            {
-                Connection.Open();
-                SqlCommand cm = new SqlCommand(queryString, Connection);
+        //            try
+        //            {
+        //                Connection.Open();
+        //                SqlCommand cm = new SqlCommand(queryString, Connection);
 
-                // Executing the SQL query
-                cm.ExecuteNonQuery();
+        //                // Executing the SQL query
+        //                cm.ExecuteNonQuery();
 
-                return true;
-            }
-#pragma warning disable CS0168 // The variable 'e' is declared but never used
-            catch (Exception e)
-#pragma warning restore CS0168 // The variable 'e' is declared but never used
-            {
-                return false;
-            }
-            finally
-            {
-                Connection.Close();
-            }
-        }
+        //                return true;
+        //            }
+        //#pragma warning disable CS0168 // The variable 'e' is declared but never used
+        //            catch (Exception e)
+        //#pragma warning restore CS0168 // The variable 'e' is declared but never used
+        //            {
+        //                return false;
+        //            }
+        //            finally
+        //            {
+        //                Connection.Close();
+        //            }
+        //        }
 
         private bool CreateTables()
         {
@@ -703,8 +703,8 @@ namespace CollageManager {
         #region Events
         private void Form1_Load(object sender, EventArgs e)
         {
-            if (CreatDatabase())
-            {
+            //if (CreatDatabase())
+            //{
                 if (CreateTables())
                 {
                     // بارگیری اطلاعات
@@ -714,11 +714,11 @@ namespace CollageManager {
                 {
                     MessageBox.Show("مشکلی در ساخت جداول بوجود آمده است بوجود آمده است");
                 }
-            }
-            else
-            {
-                MessageBox.Show("مشکلی بوجود آمده است");
-            }
+            //}
+            //else
+            //{
+            //    MessageBox.Show("مشکلی بوجود آمده است");
+            //}
         }
 
         /// <summary>
